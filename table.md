@@ -4,7 +4,6 @@ users
     email:string
     admin:boolean
     password_degest:string
-    password_confirmation:string
     image:string
     created_at:timestamp
     updated_at:timestamp
