@@ -3,7 +3,7 @@ users
     name:string
     email:string
     admin:boolean
-    password_degest:string
+    password_digest:string
     image:string
     created_at:timestamp
     updated_at:timestamp
