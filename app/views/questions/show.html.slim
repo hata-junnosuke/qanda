@@ -3,9 +3,10 @@ h1 Questions#show
 table.table.table-hover
   tbody
     tr
-      td= "ユーザー名"
+      td= @question.user.name
       td= @question.title
       td= simple_format(h(@question.body),{}, sanitize: false, wrapper_tag: "div")
-      td
-        = link_to '編集', edit_question_path, class: "btn btn-primary mr-3"
-        = link_to '削除', @questions, method: :delete, data: { confirm: "質問「#{@question.title}」を削除しますか？"}, class: 'btn btn-danger'
+      - if @question.user.id == current_user.id
+        td
+          = link_to '編集', edit_question_path, class: "btn btn-primary mr-3"
+          = link_to '削除', @questions, method: :delete, data: { confirm: "質問「#{@question.title}」を削除しますか？"}, class: 'btn btn-danger'

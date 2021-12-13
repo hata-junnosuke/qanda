@@ -13,13 +13,14 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def create
     @user = User.new(user_params)
 
     if @user.save!
+      session[:user_id] = @user.id
       redirect_to root_url, notice: "ユーザー「#{@user.name}」を登録しました。"
     else
       render :new
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
 
     if @user.update!(user_params)
       redirect_to root_url, notice: "ユーザー「#{@user.name}」を更新しました。"
