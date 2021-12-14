@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :users
   post '/users', to: 'users#create'
   delete '/users', to: 'users#destroy'
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   delete '/login', to: 'sessions#destroy'
   namespace :admin do
     resources :users
+    resources :questions
   end
 
   root to: 'questions#index'
