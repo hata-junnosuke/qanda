@@ -1,7 +1,9 @@
 class Admin::QuestionsController < ApplicationController
   before_action :require_admin
   def index
-    @questions = Question.all
+    @q = Question.ransack(params[:q])
+    @questions = @q.result(distinct: true).page(params[:page]).per(10)
+    #@questions = Question.all
   end
 
   def show

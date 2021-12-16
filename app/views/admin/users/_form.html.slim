@@ -11,6 +11,9 @@
   .form-group
     = f.label :email, 'メールアドレス'
     = f.text_field :email, class: 'form-control'
+  .form-group
+    = f.label :image, 'アバター画像'
+    = f.file_field :image, class: 'form-control'
   .form-check
     = f.label :admin, class: 'form-check-label'
     = f.check_box :admin, class: 'form-check-input'
