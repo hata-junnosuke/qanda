@@ -77,31 +77,10 @@
  bootstrap4でデザインを整える際に  https://qiita.com/yuufuji0000/items/4716867ed6bad97829cb
 - ユーザー画像も。(現場7-5)
 
-## 12/18
-## メモ
-- 回答機能(見た目はともかく)
-- 解決済みにするには？ 
-1. app/controller/questions/resolved_controllerを作成
-2. controllerのなかでdef createで 
-```
-def create
-    @question == Question.find(params[:question_id])
-    if @question.update(is_solved: true)
-       //
-    end
-end
-```
-3. routes.rb
-```
-resources: questions do
-    resourses: resolved, module: :question
-end
-```
-- もうちょっと工夫必要（ステータス）
-
-
-### TODO（12・18・1847）
+### TODO（12・14・2000）
+- アンサー全般
 - 要件
+  ユーザーは質問に対して回答ができる
   ユーザーは質問を解決済み状態に変更できる
   質問があった際に全員に対して質問があった旨をメールで通知する（ただし自分は除く）
   質問に対して回答があった場合は質問者および当該質問に回答したユーザーに対してメールで通知する。（ただし自分は除く）

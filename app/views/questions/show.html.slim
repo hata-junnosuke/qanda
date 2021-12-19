@@ -10,22 +10,3 @@ table.table.table-hover
         td
           = link_to '編集', edit_question_path, class: "btn btn-primary mr-3"
           = link_to '削除', @questions, method: :delete, data: { confirm: "質問「#{@question.title}」を削除しますか？"}, class: 'btn btn-danger'
-          = link_to(@question.resolved_status ? '解決済み':'受付中',{controller: :questions, action: :create})
-
-          - if @question.resolved_status == false
-            = link_to "解決済みにする", question_path(@question, params: { question: {resolved_status: true} }), method: :put, data: { confirm: "「#{@question.title}を解決済みにします。よろしいですか？」" }, class: "btn btn-success"
-
-
-    tr
-      td
-        = form_with model: [@question, @answer], local: true do |f|
-          .form-group
-            = f.label :body
-            = f.text_area :body, class: 'form-control', id: 'question_answer'
-          = f.submit '回答する', class: 'btn btn-primary'
-    tr
-      td
-         - @question.answers.each do |answer|
-           tr
-             td= answer.user.name
-             td= answer.body

@@ -8,11 +8,6 @@ h1 Questions#index
   .form-group
     = f.submit class: 'btn btn-outline-primary'
 
-.mb-4
-  = link_to '全て', "#{ current_user.admin ? admin_questions_path : questions_path }", class: "#{ params[:solved].nil? ? 'btn btn-success' : 'btn btn-outline-success' }"
-  = link_to '解決済み', questions_path(resolved_status: true) , class: "btn btn-outline-success"
-  = link_to '未解決', "#{ current_user.admin ? admin_questions_path(resolved_status: false) : questions_path(resolved_status: false) }", class: "#{ params[:resolved_status] == "false" ? 'btn btn-success' : 'btn btn-outline-success' }"
-
 = link_to '新規投稿', new_question_path, class: 'btn btn-primary'
 
 .mb-3
@@ -23,7 +18,6 @@ table.table.table-hover
       th= "質問タイトル"
       th
   tbody
-
     - @questions.each do |question|
       tr
         td= question.user.name
@@ -36,6 +30,3 @@ table.table.table-hover
 .mb-3
   = paginate @questions
   = page_entries_info @questions
-
-
-
