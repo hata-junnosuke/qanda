@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'answers/create'
   resources :users
   post '/users', to: 'users#create'
   delete '/users', to: 'users#destroy'
@@ -12,5 +13,12 @@ Rails.application.routes.draw do
   end
 
   root to: 'questions#index'
-  resources :questions
+  resources :questions do
+    resources :answers, only: [:create]
+  end
+
+  scope module: :questions do
+    resources :resolved, only: [:create]
+  end
+
 end

@@ -6,4 +6,5 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   has_many :questions
+  has_many :answers, dependent: :destroy
 end

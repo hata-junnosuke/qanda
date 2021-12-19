@@ -24,6 +24,7 @@ html
           li =current_user.name
         - else
           li.nav-item= link_to 'ログイン', login_path, class: 'nav-link'
+
     .container
       - if flash.notice.present?
         .alert.alert-success= flash.notice
