@@ -9,8 +9,8 @@ h1 Questions#solved
     = f.submit class: 'btn btn-outline-primary'
 
 .mb-4
-  = link_to '全て', questions_path, class: "#{ params[:solved].nil? ? 'btn btn-success' : 'btn btn-outline-success' }"
-  = link_to '解決済み', question_solved_path , class: "btn btn-outline-success"
+  = link_to '全て', questions_path, class: "btn btn-outline-success"
+  = link_to '解決済み', question_solved_path , class: "btn btn-success"
   = link_to '未解決', question_unsolved_path , class: "btn btn-outline-success"
 
 = link_to '新規投稿', new_question_path, class: 'btn btn-primary'

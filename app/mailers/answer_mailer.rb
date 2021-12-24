@@ -1,12 +1,20 @@
 class AnswerMailer < ApplicationMailer
-  def creation_email(answer)
-    #@question = params[:question]
-    #@user = params[:user]
+  def answered_email(user, question, answer)
+    @user = user
+    @question = question
     @answer = answer
     mail(
-      subject: '回答お知らせメール',
-      to: @answer.user.email,
-      from: 'qanda@example.com'
-    )
+      subject: '質問に対する回答が投稿されました',
+      to: @user.email,
+      from: 'qanda@exmaple.com',
+      )
+  end
+
+  def send_answered_email(question, answer)
+    @users = User.all
+    @users.all.each do |user|
+      next if user.id == answer.user_id
+      AnswerMailer.answered_email(user, question, answer).deliver_now
+    end
   end
 end
