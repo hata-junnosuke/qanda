@@ -1,0 +1,9 @@
+| 以下の質問を投稿されました。
+
+ul
+  li
+    | 質問
+    = @question.title
+  li
+    | 内容
+    = simple_format(@question.body)

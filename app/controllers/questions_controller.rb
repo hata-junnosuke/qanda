@@ -4,6 +4,17 @@ class QuestionsController < ApplicationController
     @questions = @q.result(distinct: true).page(params[:page]).per(10)
     #@questions = Question.all
   end
+
+  def solved
+    @q = Question.where(resolved_status: true).ransack(params[:q])
+    @questions = @q.result(distinct: true).page(params[:page]).per(5)
+  end
+
+  def unsolved
+    @q = Question.where(resolved_status: false).ransack(params[:q])
+    @questions = @q.result(distinct: true).page(params[:page]).per(5)
+  end
+
   def show
     @question = Question.find(params[:id])
     @answer = Answer.new
@@ -27,6 +38,10 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new(question_params)
 
     if @question.save
+      User.where.not(id: current_user.id).each do |user|
+        QuestionMailer.with(user: user, question: @question).creation_email.deliver_now
+      end
+
       redirect_to @question, notice: "質問「#{@question.title}」を投稿しました。"
     else
       render :new

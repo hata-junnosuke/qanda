@@ -16,9 +16,11 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers, only: [:create]
   end
+  get "/question/solved", to: "questions#solved"
+  get "/question/unsolved", to: "questions#unsolved"
 
-  scope module: :questions do
-    resources :resolved, only: [:create]
-  end
+  #scope module: :questions do
+  #  resources :resolved, only: [:create]
+  #end
 
 end

@@ -1,14 +1,16 @@
 class AnswersController < ApplicationController
   def create
-    @answer = Answer.new(answer_params)
-    @answer.user_id = current_user.id
-    @answer.question_id = params[:question_id]
-
+    @question = Question.find(params[:question_id])
+    @answer = current_user.answers.build(answer_params.merge(question_id: @question.id))
     if @answer.save
-      flash[:notice] = "成功！"
+      AnswerMailer.send_answered_email(@question, @answer).deliver_now
+      #Answer.where.not(id: current_user.id).each do |answer|
+      #  AnswerMailer.with(user: @user, question: @question, answer: answer).creation_email.deliver_now
+      #end
+
+      flash[:notice] = "回答しました。"
       redirect_to("/questions/#{params[:question_id]}")
     else
-      @question = Question.find(params[:question_id])
       render :'questions/show'
     end
   end
