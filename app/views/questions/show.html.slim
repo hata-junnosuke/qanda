@@ -8,7 +8,7 @@ table.table.table-hover
       td= simple_format(h(@question.body),{}, sanitize: false, wrapper_tag: "div")
       - if @question.user.id == current_user.id
         td
-          = link_to '編集', edit_question_path, class: "btn btn-primary mr-3"
+          = link_to '編集',  edit_question_path(@question), class: "btn btn-primary mr-3"
           = link_to '削除', @questions, method: :delete, data: { confirm: "質問「#{@question.title}」を削除しますか？"}, class: 'btn btn-danger'
           = @question.resolved_status ? '解決済み':'受付中'
 
@@ -25,7 +25,7 @@ table.table.table-hover
           = f.submit '回答する', class: 'btn btn-primary'
     tr
       td
-         - @question.answers.each do |answer|
+         - @question.answers.each do |answer|#n+1問題？
            tr
              td= answer.user.name
              td= answer.body

@@ -2,7 +2,6 @@ class QuestionsController < ApplicationController
   def index
     @q = Question.ransack(params[:q])
     @questions = @q.result(distinct: true).page(params[:page]).per(10)
-    #@questions = Question.all
   end
 
   def solved
@@ -17,7 +16,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answer = Answer.new
+    @answer = Answer.new(question_id: @question.id)
   end
 
   def new
@@ -29,9 +28,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    question = Question.find(params[:id])
-    question.update!(question_params)
-    redirect_to questions_url, notice: "質問「#{question.title}」を更新しました。"
+    @question = current_user.questions.find(params[:id])
+
+    if @question.update(question_params)
+      redirect_to @question, notice: "質問「#{@question.title}」を更新しました。"
+    else
+      render :edit
+    end
   end
 
   def create
@@ -41,7 +44,6 @@ class QuestionsController < ApplicationController
       User.where.not(id: current_user.id).each do |user|
         QuestionMailer.with(user: user, question: @question).creation_email.deliver_now
       end
-
       redirect_to @question, notice: "質問「#{@question.title}」を投稿しました。"
     else
       render :new
@@ -50,14 +52,8 @@ class QuestionsController < ApplicationController
 
   def destroy
     question = current_user.questions.find(params[:id])
-    question.destroy
+    question.destroy!
     redirect_to questions_url, notice: "質問「#{question.title}」を削除しました。"
-  end
-
-  def resolved_status
-    @question == current_user.questions.find(params[:question_id])
-    if @question.update(resolved_status: true)
-    end
   end
 
   private

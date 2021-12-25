@@ -116,7 +116,10 @@ to: "#{@answer.question.user.email}, #{@answer.user.email}",
 宛先をこのようにすると複数に送れた。
 だが要件は満たせていない。
 
-## 12/22
+## 12/25
+- renderではflashどうする？
+- current_userのニルガードはいかに？
+- railsの慣習について（モデルにかく？コントローラーに書く？）
 - 
   
 

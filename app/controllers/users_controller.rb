@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save!
+    if @user.save
       session[:user_id] = @user.id
       redirect_to root_url, notice: "ユーザー「#{@user.name}」を登録しました。"
     else
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    if @user.update!(user_params)
+    if @user.update(user_params)
       redirect_to root_url, notice: "ユーザー「#{@user.name}」を更新しました。"
     else
       render :edit
@@ -39,8 +39,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = current_user
-    @user.destroy
-    redirect_to users_url, notice: "ユーザー「#{@user.name}」を削除しました。"
+    @user.destroy!
+    redirect_to root_url, notice: "ユーザー「#{@user.name}」を削除しました。"
   end
 
   private
