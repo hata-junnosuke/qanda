@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   get 'answers/create'
   resources :users
-  post '/users', to: 'users#create'
-  delete '/users', to: 'users#destroy'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/login', to: 'sessions#destroy'

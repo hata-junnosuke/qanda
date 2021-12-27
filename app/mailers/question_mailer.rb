@@ -3,9 +3,17 @@ class QuestionMailer < ApplicationMailer
     @question = params[:question]
     @user = params[:user]
     mail(
-      subject: '質問投稿完了メール',
       to: @user.email,
-      from: 'qanda@example.com'
+      subject: '質問が投稿されました'
+    )
+  end
+
+  def answer_created
+    @user = params[:user]
+    @question = params[:question]
+    mail(
+      to: @user.email,
+      subject: 'あなたの質問に回答がありました'
     )
   end
 end
