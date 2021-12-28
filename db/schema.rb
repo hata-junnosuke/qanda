@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_045442) do
+ActiveRecord::Schema.define(version: 2021_12_28_004037) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_045442) do
   create_table "answers", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "question_id", null: false
-    t.text "body", null: false
+    t.string "body", limit: 1000, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 2021_12_18_045442) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "body", null: false
+    t.string "title", limit: 30, null: false
+    t.string "body", limit: 1000, null: false
     t.boolean "resolved_status", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_045442) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name", limit: 15, null: false
     t.string "email", null: false
     t.boolean "admin", default: false, null: false
     t.string "password_digest", null: false

@@ -6,12 +6,12 @@ class QuestionsController < ApplicationController
 
   def solved
     @q = Question.where(resolved_status: true).ransack(params[:q])
-    @questions = @q.result(distinct: true).page(params[:page]).per(5)
+    @questions = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def unsolved
     @q = Question.where(resolved_status: false).ransack(params[:q])
-    @questions = @q.result(distinct: true).page(params[:page]).per(5)
+    @questions = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def show
@@ -33,6 +33,7 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       redirect_to @question, notice: "質問「#{@question.title}」を更新しました。"
     else
+      flash[:notice] = '失敗しました'
       render :edit
     end
   end
@@ -46,6 +47,7 @@ class QuestionsController < ApplicationController
       end
       redirect_to @question, notice: "質問「#{@question.title}」を投稿しました。"
     else
+      flash[:notice] = '失敗しました'
       render :new
     end
   end

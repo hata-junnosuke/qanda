@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required
+  skip_before_action :login_required, only: [:new, :create]
   def index
     @users = User.all
   end
@@ -23,6 +23,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_url, notice: "ユーザー「#{@user.name}」を登録しました。"
     else
+      flash[:notice] = '失敗しました'
       render :new
     end
   end

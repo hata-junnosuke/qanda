@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_one_attached :image
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 15 }
   validates :email, presence: true, uniqueness: true
 
   has_many :questions, dependent: :destroy
