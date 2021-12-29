@@ -132,10 +132,13 @@ to: "#{@answer.question.user.email}, #{@answer.user.email}",
 - 新規管理者登録への導線作成
 - 質問一覧の検索とステータスを入れ替え
 - questions/showの見た目修正
-- 
+
+## 12/29
+- destroyの修正
+- 質問一覧と詳細N＋1解決
+- メールアドレスの制約
 
 ### TODO（12・27・1130）
 - 管理者画面の整理(特にサイドバー)
 - 見た目の整理
-- question/showのn+1
 - ユーザー一覧の見た目修正

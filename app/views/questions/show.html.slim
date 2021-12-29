@@ -34,7 +34,7 @@ table.table.table-hover
       th= "回答"
       th= ""
       th= ""
-    - @question.answers.each do |answer|#n+1問題？
+    - @answers.each do |answer|
       tr
          td
          td= answer.user.name
