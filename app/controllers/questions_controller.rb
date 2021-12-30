@@ -1,22 +1,19 @@
 class QuestionsController < ApplicationController
+
   def index
-    @q = Question.includes(:user).ransack(params[:q])
-    @questions = @q.result(distinct: true).page(params[:page]).per(10)
-  end
-
-  def solved
-    @q = Question.where(resolved_status: true).ransack(params[:q])
-    @questions = @q.result(distinct: true).page(params[:page]).per(10)
-  end
-
-  def unsolved
-    @q = Question.where(resolved_status: false).ransack(params[:q])
+    questions = Question.includes(:user)
+    if params[:resolved_status] == 'false'
+      questions = questions.where(resolved_status: false)
+    elsif params[:resolved_status] == 'true'
+      questions = questions.where(resolved_status: true)
+    end
+    @q = questions.ransack(params[:q])
     @questions = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def show
     @question = Question.find(params[:id])
-    @answer = Answer.includes(:user).new(question_id: @question.id)
+    @answer = Answer.new(question_id: @question.id)
     @answers = @question.answers.includes(:user)
   end
 

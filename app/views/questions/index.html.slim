@@ -1,9 +1,9 @@
 h1 Questions#index
 
 .mb-5
-  = link_to '全て', questions_path, class: "btn btn-success"
-  = link_to '解決済み', question_solved_path , class: "btn btn-outline-success"
-  = link_to '未解決', question_unsolved_path , class: "btn btn-outline-success"
+  = link_to '全て', questions_path, class: "#{ params[:resolved_status].nil? ? 'btn btn-success' : 'btn btn-outline-success' }"
+  = link_to '解決済み',  questions_path(resolved_status: false) , class: "#{ params[:resolved_status] == "false" ? 'btn btn-success' : 'btn btn-outline-success' }"
+  = link_to '未解決',  questions_path(resolved_status: true) , class: "#{ params[:resolved_status] == "true" ? 'btn btn-success' : 'btn btn-outline-success' }"
 
 = search_form_for @q, class: 'mb-5' do |f|
   .form-group.row
@@ -20,19 +20,24 @@ table.table.table-hover
     tr
       th= "投稿者"
       th= "質問タイトル"
-      th
+      th= "ステータス"
       th
   tbody
     - @questions.each do |question|
       tr
         td= question.user.name
         td= link_to question.title, question
+        - if question.resolved_status == true
+          td= "解決済み"
+        - elsif question.resolved_status == false
+          td= "未解決"
         - if question.user.id == current_user.id
-          td= link_to "編集", edit_question_path(question), class: "btn btn-primary mr-3"
-          td= link_to '削除', question, method: :delete, data: { confirm: "質問「#{question.title}」を削除しますか？"}, class: 'btn btn-danger'
+          td
+            = link_to "編集", edit_question_path(question), class: "btn btn-primary mr-3"
+            = link_to '削除', question, method: :delete, data: { confirm: "質問「#{question.title}」を削除しますか？"}, class: 'btn btn-danger'
         - else
           td
-          td
+
 
 .mb-3
   = paginate @questions

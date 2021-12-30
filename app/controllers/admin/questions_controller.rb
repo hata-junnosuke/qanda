@@ -1,7 +1,13 @@
 class Admin::QuestionsController < ApplicationController
   before_action :require_admin
   def index
-    @q = Question.ransack(params[:q])
+    questions = Question.includes(:user)
+    if params[:resolved_status] == 'false'
+      questions = questions.where(resolved_status: false)
+    elsif params[:resolved_status] == 'true'
+      questions = questions.where(resolved_status: true)
+    end
+    @q = questions.ransack(params[:q])
     @questions = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
