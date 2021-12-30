@@ -146,3 +146,4 @@ to: "#{@answer.question.user.email}, #{@answer.user.email}",
 
 ### TODO（12/30 1106）
 - パーシャルでまとめられるといい
+- users_controllerのcurrent_userを修正

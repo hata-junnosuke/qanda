@@ -15,7 +15,7 @@ table.table.table-hover
   tbody
     - @users.each do |user|
       tr
-        td= image_tag user.image, class: "rounded-circle", size: "150x150" if user.image.attached?
+        td= image_tag user.image, class: "rounded-circle", size: "45x45" if user.image.attached?
         td= link_to user.name, [:admin, user]
         td= user.email
         td= user.admin? ? 'あり' : 'なし'

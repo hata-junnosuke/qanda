@@ -2,8 +2,8 @@ h1 Questions#index
 
 .mb-5
   = link_to '全て', questions_path, class: "#{ params[:resolved_status].nil? ? 'btn btn-success' : 'btn btn-outline-success' }"
-  = link_to '解決済み',  questions_path(resolved_status: false) , class: "#{ params[:resolved_status] == "false" ? 'btn btn-success' : 'btn btn-outline-success' }"
-  = link_to '未解決',  questions_path(resolved_status: true) , class: "#{ params[:resolved_status] == "true" ? 'btn btn-success' : 'btn btn-outline-success' }"
+  = link_to '未解決',  questions_path(resolved_status: false) , class: "#{ params[:resolved_status] == "false" ? 'btn btn-success' : 'btn btn-outline-success' }"
+  = link_to '解決済み',  questions_path(resolved_status: true) , class: "#{ params[:resolved_status] == "true" ? 'btn btn-success' : 'btn btn-outline-success' }"
 
 = search_form_for @q, class: 'mb-5' do |f|
   .form-group.row
